@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        input {
+            font-size: 20px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+        #timer {
+            font-size: 48px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Countdown Timer</h2>
+<input type="number" id="timeInput" placeholder="Enter time in seconds">
+<button id="startButton">Start</button>
+<div id="timer">0</div>
+
+<script>
+    let countdown;
+    const timerDisplay = document.getElementById('timer');
+    const timeInput = document.getElementById('timeInput');
+    const startButton = document.getElementById('startButton');
+
+    startButton.addEventListener('click', function() {
+        const time = parseInt(timeInput.value);
+        if (isNaN(time) || time <= 0) {
+            alert('Please enter a valid time in seconds');
+            return;
+        }
+
+        clearInterval(countdown);
+        startCountdown(time);
+    });
+
+    function startCountdown(seconds) {
+        countdown = setInterval(function() {
+            if (seconds <= 0) {
+                clearInterval(countdown);
+                playSound();
+                timerDisplay.textContent = 'Time\'s up!';
+            } else {
+                timerDisplay.textContent = seconds;
+                seconds--;
+            }
+        }, 1000);
+    }
+
+    function playSound() {
+        const audio = new Audio('https://www.soundjay.com/button/beep-07.wav');
+        audio.play();
+    }
+</script>
+
+</body>
+</html>
